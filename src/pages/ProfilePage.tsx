@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { users, questions } from '@/data/mockData';
+import { users, questions, rankSystem } from '@/data/mockData';
 import Icon from '@/components/ui/icon';
 
 interface ProfilePageProps {
@@ -9,9 +9,12 @@ interface ProfilePageProps {
 
 const rankColors: Record<string, string> = {
   'Легенда': 'badge-gold',
+  'Гуру': 'badge-teal',
   'Мастер': 'badge-silver',
+  'Наставник': 'badge-purple',
   'Эксперт': 'badge-blue',
   'Знаток': 'badge-bronze',
+  'Ученик': 'badge-blue',
   'Новичок': 'badge-blue',
 };
 
@@ -27,20 +30,12 @@ export default function ProfilePage({ userId = 4, onNavigate }: ProfilePageProps
       .map(a => ({ ...a, questionTitle: q.title, category: q.category }))
   ).sort((a, b) => b.likes - a.likes);
 
-  const nextRankThreshold = user.rank === 'Новичок' ? 300
-    : user.rank === 'Знаток' ? 1000
-    : user.rank === 'Эксперт' ? 2000
-    : user.rank === 'Мастер' ? 4000
-    : null;
+  const currentTier = rankSystem.find(r => r.rank === user.rank);
+  const currentIndex = rankSystem.findIndex(r => r.rank === user.rank);
+  const nextTier = currentIndex < rankSystem.length - 1 ? rankSystem[currentIndex + 1] : null;
 
-  const prevThreshold = user.rank === 'Знаток' ? 300
-    : user.rank === 'Эксперт' ? 1000
-    : user.rank === 'Мастер' ? 2000
-    : user.rank === 'Легенда' ? 4000
-    : 0;
-
-  const progress = nextRankThreshold
-    ? Math.round(((user.rating - prevThreshold) / (nextRankThreshold - prevThreshold)) * 100)
+  const progress = currentTier && nextTier
+    ? Math.min(100, Math.round(((user.rating - currentTier.min) / (nextTier.min - currentTier.min)) * 100))
     : 100;
 
   return (
@@ -85,15 +80,11 @@ export default function ProfilePage({ userId = 4, onNavigate }: ProfilePageProps
           </div>
 
           {/* Progress bar */}
-          {nextRankThreshold && (
+          {nextTier && (
             <div className="mt-4 pt-4 border-t border-border">
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
-                <span>До ранга «{
-                  user.rank === 'Новичок' ? 'Знаток' :
-                  user.rank === 'Знаток' ? 'Эксперт' :
-                  user.rank === 'Эксперт' ? 'Мастер' : 'Легенда'
-                }»</span>
-                <span>{nextRankThreshold - user.rating} очков</span>
+                <span>До ранга «{nextTier.icon} {nextTier.rank}»</span>
+                <span>{(nextTier.min - user.rating).toLocaleString()} очков</span>
               </div>
               <div className="h-2 bg-secondary rounded-full overflow-hidden">
                 <div

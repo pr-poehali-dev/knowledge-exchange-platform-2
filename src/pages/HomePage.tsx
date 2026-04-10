@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { users, notifications } from '@/data/mockData';
 import Icon from '@/components/ui/icon';
+import { useTheme } from '@/context/ThemeContext';
 
 interface HomePageProps {
   onNavigate: (page: string, params?: Record<string, unknown>) => void;
@@ -8,9 +9,12 @@ interface HomePageProps {
 
 const rankColors: Record<string, string> = {
   'Легенда': 'badge-gold',
+  'Гуру': 'badge-teal',
   'Мастер': 'badge-silver',
+  'Наставник': 'badge-purple',
   'Эксперт': 'badge-blue',
   'Знаток': 'badge-bronze',
+  'Ученик': 'badge-blue',
   'Новичок': 'badge-blue',
 };
 
@@ -19,6 +23,7 @@ const unreadCount = notifications.filter(n => !n.read).length;
 
 export default function HomePage({ onNavigate }: HomePageProps) {
   const [showNotifications, setShowNotifications] = useState(false);
+  const { theme, toggle } = useTheme();
 
   return (
     <div className="pb-24">
@@ -29,7 +34,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <h1 className="text-xl font-bold font-montserrat text-foreground">KnowHub</h1>
             <p className="text-xs text-muted-foreground">Платформа знаний</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggle}
+              className="p-2 rounded-xl hover:bg-secondary transition-colors"
+              title={theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'}
+            >
+              <Icon name={theme === 'dark' ? 'Sun' : 'Moon'} size={18} className="text-muted-foreground" />
+            </button>
             <button
               onClick={() => setShowNotifications(!showNotifications)}
               className="relative p-2 rounded-xl hover:bg-secondary transition-colors"

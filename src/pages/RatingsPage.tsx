@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { users } from '@/data/mockData';
+import { users, rankSystem } from '@/data/mockData';
 import type { User } from '@/data/mockData';
 import Icon from '@/components/ui/icon';
 
@@ -11,17 +11,23 @@ type TabType = 'all' | 'teachers' | 'students';
 
 const rankColors: Record<string, string> = {
   'Легенда': 'badge-gold',
+  'Гуру': 'badge-teal',
   'Мастер': 'badge-silver',
+  'Наставник': 'badge-purple',
   'Эксперт': 'badge-blue',
   'Знаток': 'badge-bronze',
+  'Ученик': 'badge-blue',
   'Новичок': 'badge-blue',
 };
 
 const rankIcons: Record<string, string> = {
   'Легенда': '👑',
+  'Гуру': '🧠',
   'Мастер': '🏆',
-  'Эксперт': '⭐',
+  'Наставник': '🧑‍🏫',
+  'Эксперт': '🔬',
   'Знаток': '📚',
+  'Ученик': '📖',
   'Новичок': '🌱',
 };
 
@@ -134,16 +140,12 @@ export default function RatingsPage({ onNavigate }: RatingsPageProps) {
             Система рангов
           </h4>
           <div className="space-y-2.5">
-            {[
-              { rank: 'Новичок', range: '0 – 299', color: 'badge-blue', icon: '🌱' },
-              { rank: 'Знаток', range: '300 – 999', color: 'badge-bronze', icon: '📚' },
-              { rank: 'Эксперт', range: '1000 – 1999', color: 'badge-blue', icon: '⭐' },
-              { rank: 'Мастер', range: '2000 – 3999', color: 'badge-silver', icon: '🏆' },
-              { rank: 'Легенда', range: '4000+', color: 'badge-gold', icon: '👑' },
-            ].map(item => (
+            {rankSystem.map(item => (
               <div key={item.rank} className="flex items-center justify-between">
                 <span className={`rank-badge ${item.color}`}>{item.icon} {item.rank}</span>
-                <span className="text-xs text-muted-foreground">{item.range} очков</span>
+                <span className="text-xs text-muted-foreground">
+                  {item.max === Infinity ? `${item.min.toLocaleString()}+` : `${item.min.toLocaleString()} – ${item.max.toLocaleString()}`} очков
+                </span>
               </div>
             ))}
           </div>
