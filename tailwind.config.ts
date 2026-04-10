@@ -7,6 +7,7 @@ export default {
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
+			"./1775789522712924767.html"
 	],
 	prefix: "",
 	theme: {
@@ -86,9 +87,16 @@ export default {
 					}
 				}
 			},
+			fontFamily: {
+				'golos': ['Golos Text', 'sans-serif'],
+				'montserrat': ['Montserrat', 'sans-serif'],
+			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fadeIn 0.4s ease-out forwards',
+				'slide-up': 'slideUp 0.35s ease-out forwards',
+				'scale-in': 'scaleIn 0.2s ease-out forwards',
 			}
 		}
 	},

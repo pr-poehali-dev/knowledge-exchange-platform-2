@@ -1,14 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import BottomNav from '@/components/BottomNav';
+import HomePage from '@/pages/HomePage';
+import QuestionsPage from '@/pages/QuestionsPage';
+import RatingsPage from '@/pages/RatingsPage';
+import ProfilePage from '@/pages/ProfilePage';
+import SearchPage from '@/pages/SearchPage';
 
-const Index = () => {
+type Page = 'home' | 'questions' | 'ratings' | 'search' | 'profile';
+
+export default function Index() {
+  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [profileUserId, setProfileUserId] = useState<number>(4);
+
+  const handleNavigate = (page: string, params?: Record<string, unknown>) => {
+    if (page === 'profile' && params?.userId) {
+      setProfileUserId(params.userId as number);
+    }
+    setCurrentPage(page as Page);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {currentPage === 'home' && <HomePage onNavigate={handleNavigate} />}
+      {currentPage === 'questions' && <QuestionsPage onNavigate={handleNavigate} />}
+      {currentPage === 'ratings' && <RatingsPage onNavigate={handleNavigate} />}
+      {currentPage === 'profile' && <ProfilePage userId={profileUserId} onNavigate={handleNavigate} />}
+      {currentPage === 'search' && <SearchPage onNavigate={handleNavigate} />}
+
+      <BottomNav current={currentPage} onNavigate={(p) => setCurrentPage(p)} />
     </div>
   );
-};
-
-export default Index;
+}
