@@ -8,14 +8,14 @@ interface ProfilePageProps {
 }
 
 const rankColors: Record<string, string> = {
-  'Легенда': 'badge-gold',
-  'Гуру': 'badge-teal',
-  'Мастер': 'badge-silver',
-  'Наставник': 'badge-purple',
-  'Эксперт': 'badge-blue',
-  'Знаток': 'badge-bronze',
-  'Ученик': 'badge-blue',
-  'Новичок': 'badge-blue',
+  'Оракул': 'badge-gold',
+  'Архитектор': 'badge-teal',
+  'Компилятор': 'badge-silver',
+  'Синтаксис': 'badge-purple',
+  'Хакер': 'badge-blue',
+  'Дебаггер': 'badge-bronze',
+  'Любопытный': 'badge-blue',
+  'Нулёвый': 'badge-blue',
 };
 
 type ProfileTab = 'answers' | 'achievements';

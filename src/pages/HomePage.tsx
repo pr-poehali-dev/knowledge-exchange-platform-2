@@ -8,14 +8,14 @@ interface HomePageProps {
 }
 
 const rankColors: Record<string, string> = {
-  'Легенда': 'badge-gold',
-  'Гуру': 'badge-teal',
-  'Мастер': 'badge-silver',
-  'Наставник': 'badge-purple',
-  'Эксперт': 'badge-blue',
-  'Знаток': 'badge-bronze',
-  'Ученик': 'badge-blue',
-  'Новичок': 'badge-blue',
+  'Оракул': 'badge-gold',
+  'Архитектор': 'badge-teal',
+  'Компилятор': 'badge-silver',
+  'Синтаксис': 'badge-purple',
+  'Хакер': 'badge-blue',
+  'Дебаггер': 'badge-bronze',
+  'Любопытный': 'badge-blue',
+  'Нулёвый': 'badge-blue',
 };
 
 const topUsers = [...users].sort((a, b) => b.rating - a.rating).slice(0, 5);
@@ -31,8 +31,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       <header className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border px-5 py-4">
         <div className="flex items-center justify-between max-w-2xl mx-auto">
           <div>
-            <h1 className="text-xl font-bold font-montserrat text-foreground">KnowHub</h1>
-            <p className="text-xs text-muted-foreground">Платформа знаний</p>
+            <h1 className="text-xl font-bold font-montserrat text-foreground">ИТИ<span className="text-primary">.знания</span></h1>
+            <p className="text-xs text-muted-foreground">ХГУ им. Катанова · ИТИ</p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -93,27 +93,27 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         {/* Hero */}
         <div className="mb-8 animate-fade-in">
           <div className="bg-gradient-to-br from-primary/10 to-accent rounded-2xl p-6">
-            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Добро пожаловать</p>
+            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Инженерно-технологический институт</p>
             <h2 className="text-2xl font-bold font-montserrat text-foreground mb-2">
-              Задавайте вопросы.<br />Делитесь знаниями.
+              Задавайте вопросы.<br />Делитесь опытом.
             </h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Получайте ответы от лучших преподавателей и студентов платформы.
+              Платформа знаний студентов и преподавателей ХГУ им. Н.Ф. Катанова.
             </p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => onNavigate('questions')}
                 className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors"
               >
                 <Icon name="HelpCircle" size={16} />
-                Задать вопрос
+                Вопросы
               </button>
               <button
-                onClick={() => onNavigate('search')}
+                onClick={() => onNavigate('articles')}
                 className="flex items-center gap-2 bg-card border border-border text-foreground px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-secondary transition-colors"
               >
-                <Icon name="Search" size={16} />
-                Поиск
+                <Icon name="BookOpen" size={16} />
+                Статьи
               </button>
             </div>
           </div>

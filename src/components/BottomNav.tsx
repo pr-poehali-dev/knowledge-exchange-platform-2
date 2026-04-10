@@ -1,6 +1,6 @@
 import Icon from '@/components/ui/icon';
 
-type Page = 'home' | 'questions' | 'ratings' | 'search' | 'profile';
+type Page = 'home' | 'questions' | 'articles' | 'ratings' | 'search' | 'profile';
 
 interface BottomNavProps {
   current: Page;
@@ -10,9 +10,9 @@ interface BottomNavProps {
 const navItems: { id: Page; label: string; icon: string }[] = [
   { id: 'home', label: 'Главная', icon: 'Home' },
   { id: 'questions', label: 'Вопросы', icon: 'HelpCircle' },
-  { id: 'ratings', label: 'Рейтинги', icon: 'Trophy' },
+  { id: 'articles', label: 'Статьи', icon: 'BookOpen' },
+  { id: 'ratings', label: 'Рейтинг', icon: 'Trophy' },
   { id: 'search', label: 'Поиск', icon: 'Search' },
-  { id: 'profile', label: 'Профиль', icon: 'User' },
 ];
 
 export default function BottomNav({ current, onNavigate }: BottomNavProps) {
